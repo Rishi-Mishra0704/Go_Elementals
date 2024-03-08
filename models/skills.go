@@ -3,7 +3,7 @@ package models
 import "fmt"
 
 type Skill interface {
-	Use(player *Player, enemy *Enemy)
+	Use(caster, target *Character)
 }
 
 type PhysicalSkill struct {
@@ -12,13 +12,13 @@ type PhysicalSkill struct {
 	Stamina int8
 }
 
-func (s *PhysicalSkill) Use(player *Player, enemy *Enemy) {
+func (s *PhysicalSkill) Use(caster, target *Character) {
 	fmt.Printf("Using %s (Damage: %d)\n", s.Name, s.Damage)
-	if enemy != nil {
-		enemy.HP -= s.Damage
+	if target != nil {
+		target.HP -= s.Damage
 	}
-	if player != nil {
-		player.Stamina -= s.Stamina
+	if caster != nil {
+		caster.Stamina -= s.Stamina
 	}
 }
 
@@ -28,13 +28,15 @@ type ElementalSkill struct {
 	Damage int8
 }
 
-func (s *ElementalSkill) Use(player *Player, enemy *Enemy) {
+func (s *ElementalSkill) Use(caster, target *Character) {
 	fmt.Printf("Using %s (Mana: %d)\n", s.Name, s.Mana)
-	if player != nil {
-		player.Mana -= s.Mana
-	}
-	if enemy != nil {
-		enemy.HP -= s.Damage
+	if caster != nil && caster.Mana >= s.Mana {
+		caster.Mana -= s.Mana
+		if target != nil {
+			target.HP -= s.Damage
+		}
+	} else {
+		fmt.Println("Not enough mana to use this skill!")
 	}
 }
 
@@ -45,16 +47,15 @@ type StatSkill struct {
 	BuffStam int8
 }
 
-func (s *StatSkill) Use(player *Player, enemy *Enemy) {
-	fmt.Printf("Using %s (BuffHP: %d, BuffMana: %d, BuffStam: %d)\n", s.Name, s.BuffHP, s.BuffMana, s.BuffStam)
-	if player != nil {
-		player.HP += s.BuffHP
-		player.Mana += s.BuffMana
-		player.Stamina += s.BuffStam
+func (s *StatSkill) Use(caster, target *Character) {
+	fmt.Printf("Using %s (BuffHP: %d, BuffMana: %d, BuffStamina: %d)\n", s.Name, s.BuffHP, s.BuffMana, s.BuffStam)
+	if target != nil {
+		target.HP += s.BuffHP
+		target.Mana += s.BuffMana
+		target.Stamina += s.BuffStam
 	}
-	if enemy != nil {
-		enemy.HP += s.BuffHP
-		enemy.Mana += s.BuffMana
-		enemy.Stamina += s.BuffStam
+	if caster != nil {
+		caster.Mana -= s.BuffMana
+		caster.Stamina -= s.BuffStam
 	}
 }
