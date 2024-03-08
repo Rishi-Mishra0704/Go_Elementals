@@ -81,9 +81,7 @@ func CreateEnemyCharacter() *models.Enemy {
 		Character: &models.Character{HP: 50, Mana: 50, Stamina: 50},
 		Skills:    make([]models.Skill, 0),
 	}
-	for i := 0; i < 2; i++ {
-		enemy.Skills = append(enemy.Skills, randomElementalSkill())
-	}
+	enemy.Skills = append(enemy.Skills, randomElementalSkill())
 	enemy.Skills = append(enemy.Skills, randomPhysicalSkill(), randomStatSkill())
 	return enemy
 }
