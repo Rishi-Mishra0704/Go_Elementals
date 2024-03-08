@@ -1,6 +1,6 @@
 package models
 
-type Player struct {
+type Enemy struct {
 	*Character
 	Skills []Skill
 }
