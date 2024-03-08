@@ -26,9 +26,25 @@ func PlayerTurn(player *models.Player, enemy *models.Enemy) {
 	fmt.Print("Choose a skill: ")
 	fmt.Scanln(&choice)
 	// Use the selected skill on the enemy
-	player.Skills[choice-1].Use(player.Character, enemy.Character)
+	selectedSkill := player.Skills[choice-1]
+	if _, ok := selectedSkill.(*models.StatSkill); ok {
+		// Check if the selected skill is a StatSkill (Boost, Nerf, Regenerate, etc.)
+		switch selectedSkill.(*models.StatSkill).Name {
+		case "Regenerate":
+			// Check if Regenerate would exceed 50 HP
+			if player.Character.HP < 50 {
+				selectedSkill.Use(player.Character, enemy.Character)
+			} else {
+				fmt.Println("Cannot use Regenerate, HP is already at maximum.")
+			}
+		default:
+			selectedSkill.Use(player.Character, enemy.Character)
+		}
+	} else {
+		selectedSkill.Use(player.Character, enemy.Character)
+	}
 	// Check if the enemy's health is zero after the attack
-	if enemy.HP <= 0 {
+	if enemy.Character.HP <= 0 {
 		fmt.Println("Enemy defeated! You win!")
 		return
 	}
@@ -37,12 +53,28 @@ func PlayerTurn(player *models.Player, enemy *models.Enemy) {
 // Enemy's turn
 func EnemyTurn(player *models.Player, enemy *models.Enemy) {
 	// Select a random skill for the enemy
-	fmt.Printf("Enemy's HP: %d, Mana: %d, Stamina: %d\n", enemy.HP, enemy.Mana, enemy.Stamina)
+	fmt.Printf("Enemy's HP: %d, Mana: %d, Stamina: %d\n", enemy.Character.HP, enemy.Character.Mana, enemy.Character.Stamina)
 	enemySkill := enemy.Skills[rand.Intn(len(enemy.Skills))]
 	// Use the selected skill on the player
-	enemySkill.Use(enemy.Character, player.Character)
+	selectedSkill := enemySkill
+	if _, ok := selectedSkill.(*models.StatSkill); ok {
+		// Check if the selected skill is a StatSkill (Boost, Nerf, Regenerate, etc.)
+		switch selectedSkill.(*models.StatSkill).Name {
+		case "Regenerate":
+			// Check if Regenerate would exceed 50 HP
+			if enemy.Character.HP < 50 {
+				selectedSkill.Use(enemy.Character, player.Character)
+			} else {
+				fmt.Println("Enemy cannot use Regenerate, HP is already at maximum.")
+			}
+		default:
+			selectedSkill.Use(enemy.Character, player.Character)
+		}
+	} else {
+		selectedSkill.Use(enemy.Character, player.Character)
+	}
 	// Check if the player's health is zero after the attack
-	if player.HP <= 0 {
+	if player.Character.HP <= 0 {
 		fmt.Println("Player defeated! You lose!")
 		return
 	}

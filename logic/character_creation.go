@@ -16,15 +16,15 @@ func randomElementalSkill() models.Skill {
 	name := names[rand.Intn(len(names))]
 	switch name {
 	case "Fireball":
-		return &models.ElementalSkill{Name: name, Mana: 20, Damage: 10}
+		return &models.ElementalSkill{Name: name, Mana: 20, Damage: 20}
 	case "Water Blast":
-		return &models.ElementalSkill{Name: name, Mana: 25, Damage: 12}
+		return &models.ElementalSkill{Name: name, Mana: 25, Damage: 25}
 	case "Thunder Strike":
-		return &models.ElementalSkill{Name: name, Mana: 30, Damage: 15}
+		return &models.ElementalSkill{Name: name, Mana: 30, Damage: 35}
 	case "Earthquake":
-		return &models.ElementalSkill{Name: name, Mana: 35, Damage: 18}
+		return &models.ElementalSkill{Name: name, Mana: 35, Damage: 38}
 	case "Tornado":
-		return &models.ElementalSkill{Name: name, Mana: 40, Damage: 20}
+		return &models.ElementalSkill{Name: name, Mana: 40, Damage: 30}
 	}
 	return nil
 }
@@ -52,15 +52,13 @@ func randomStatSkill() models.Skill {
 	name := names[rand.Intn(len(names))]
 	switch name {
 	case "Boost":
-		return &models.StatSkill{Name: name, BuffHP: 10, BuffMana: 5, BuffStam: 5}
+		return &models.StatSkill{Name: name, BuffHP: 10, BuffMana: 15, BuffStam: 15}
 	case "Nerf":
 		return &models.StatSkill{Name: name, BuffHP: -5, BuffMana: -5, BuffStam: -5}
 	case "Regenerate":
-		return &models.StatSkill{Name: name, BuffHP: 15, BuffMana: 10, BuffStam: 10}
+		return &models.StatSkill{Name: name, BuffHP: 25, BuffMana: 0, BuffStam: 0}
 	case "Exhaust":
 		return &models.StatSkill{Name: name, BuffHP: -10, BuffMana: -10, BuffStam: -10}
-	case "Reflect":
-		return &models.StatSkill{Name: name, BuffHP: 5, BuffMana: 0, BuffStam: 0}
 	}
 	return nil
 }
