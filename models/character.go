@@ -5,7 +5,3 @@ type Character struct {
 	Mana    int8
 	Stamina int8
 }
-
-type Skill interface {
-	Use(player *Player, enemy *Enemy)
-}
