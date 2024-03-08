@@ -7,5 +7,5 @@ type Character struct {
 }
 
 type Skill interface {
-	Use(c *Character)
+	Use(player *Player, enemy *Enemy)
 }
