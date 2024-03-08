@@ -68,7 +68,7 @@ func randomStatSkill() models.Skill {
 // CreatePlayerCharacter creates a player character with randomized skill distribution and values.
 func CreatePlayerCharacter() *models.Player {
 	player := &models.Player{
-		Character: &models.Character{HP: 50, Mana: 50, Stamina: 50},
+		Character: &models.Character{HP: 50, Mana: 100, Stamina: 100},
 		Skills:    make([]models.Skill, 0),
 	}
 	player.Skills = append(player.Skills, randomElementalSkill(), randomElementalSkill(), randomPhysicalSkill(), randomStatSkill())
@@ -78,7 +78,7 @@ func CreatePlayerCharacter() *models.Player {
 // CreateEnemyCharacter creates an enemy character with randomized skill distribution and values.
 func CreateEnemyCharacter() *models.Enemy {
 	enemy := &models.Enemy{
-		Character: &models.Character{HP: 50, Mana: 50, Stamina: 50},
+		Character: &models.Character{HP: 50, Mana: 100, Stamina: 100},
 		Skills:    make([]models.Skill, 0),
 	}
 	enemy.Skills = append(enemy.Skills, randomElementalSkill())
