@@ -6,17 +6,17 @@ type Skill interface {
 
 type PhysicalSkill struct {
 	Name    string
-	Stamina int
+	Stamina int8
 }
 
 type ElementalSkill struct {
 	Name string
-	Mana int
+	Mana int8
 }
 
 type StatSkill struct {
 	Name     string
-	BuffHP   int
-	BuffMana int
-	BuffStam int
+	BuffHP   int8
+	BuffMana int8
+	BuffStam int8
 }
