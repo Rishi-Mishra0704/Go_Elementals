@@ -37,6 +37,7 @@ func PlayerTurn(player *models.Player, enemy *models.Enemy) {
 // Enemy's turn
 func EnemyTurn(player *models.Player, enemy *models.Enemy) {
 	// Select a random skill for the enemy
+	fmt.Printf("Enemy's HP: %d, Mana: %d, Stamina: %d\n", enemy.HP, enemy.Mana, enemy.Stamina)
 	enemySkill := enemy.Skills[rand.Intn(len(enemy.Skills))]
 	// Use the selected skill on the player
 	enemySkill.Use(player, nil)
