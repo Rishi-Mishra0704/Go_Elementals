@@ -12,21 +12,38 @@ func init() {
 }
 
 func randomElementalSkill() models.Skill {
-	names := []string{"Fireball", "Water Blast", "Thunder Strike", "Earthquake", "Tornado"}
+	names := []string{"Fireball", "Water Blast", "Thunder Strike", "Earthquake", "Tornado", "Ice Shard", "Lightning Bolt", "Magma Surge"}
 	name := names[rand.Intn(len(names))]
+
+	var mana, damage int8
 	switch name {
 	case "Fireball":
-		return &models.ElementalSkill{Name: name, Mana: 20, Damage: 20}
+		mana = 10
+		damage = 14
 	case "Water Blast":
-		return &models.ElementalSkill{Name: name, Mana: 25, Damage: 25}
+		mana = 12
+		damage = 13
 	case "Thunder Strike":
-		return &models.ElementalSkill{Name: name, Mana: 30, Damage: 35}
+		mana = 15
+		damage = 28
 	case "Earthquake":
-		return &models.ElementalSkill{Name: name, Mana: 35, Damage: 38}
+		mana = 35
+		damage = 30
 	case "Tornado":
-		return &models.ElementalSkill{Name: name, Mana: 40, Damage: 30}
+		mana = 25
+		damage = 35
+	case "Ice Shard":
+		mana = 22
+		damage = 18
+	case "Lightning Bolt":
+		mana = 28
+		damage = 33
+	case "Magma Surge":
+		mana = 38
+		damage = 40
 	}
-	return nil
+
+	return &models.ElementalSkill{Name: name, Mana: mana, Damage: damage}
 }
 
 func randomPhysicalSkill() models.Skill {
@@ -47,39 +64,23 @@ func randomPhysicalSkill() models.Skill {
 	return nil
 }
 
-func randomStatSkill() models.Skill {
-	names := []string{"Boost", "Nerf", "Regenerate", "Exhaust", "Reflect"}
-	name := names[rand.Intn(len(names))]
-	switch name {
-	case "Boost":
-		return &models.StatSkill{Name: name, BuffHP: 10, BuffMana: 15, BuffStam: 15}
-	case "Nerf":
-		return &models.StatSkill{Name: name, BuffHP: -5, BuffMana: -5, BuffStam: -5}
-	case "Regenerate":
-		return &models.StatSkill{Name: name, BuffHP: 25, BuffMana: 0, BuffStam: 0}
-	case "Exhaust":
-		return &models.StatSkill{Name: name, BuffHP: -10, BuffMana: -10, BuffStam: -10}
-	}
-	return nil
-}
-
 // CreatePlayerCharacter creates a player character with randomized skill distribution and values.
 func CreatePlayerCharacter() *models.Player {
 	player := &models.Player{
-		Character: &models.Character{HP: 50, Mana: 100, Stamina: 100},
+		Character: &models.Character{HP: 120, Mana: 100, Stamina: 100},
 		Skills:    make([]models.Skill, 0),
 	}
-	player.Skills = append(player.Skills, randomElementalSkill(), randomElementalSkill(), randomPhysicalSkill(), randomStatSkill())
+	player.Skills = append(player.Skills, randomElementalSkill(), randomElementalSkill(), randomPhysicalSkill())
 	return player
 }
 
 // CreateEnemyCharacter creates an enemy character with randomized skill distribution and values.
 func CreateEnemyCharacter() *models.Enemy {
 	enemy := &models.Enemy{
-		Character: &models.Character{HP: 50, Mana: 100, Stamina: 100},
+		Character: &models.Character{HP: 120, Mana: 100, Stamina: 100},
 		Skills:    make([]models.Skill, 0),
 	}
 	enemy.Skills = append(enemy.Skills, randomElementalSkill())
-	enemy.Skills = append(enemy.Skills, randomPhysicalSkill(), randomStatSkill())
+	enemy.Skills = append(enemy.Skills, randomPhysicalSkill())
 	return enemy
 }

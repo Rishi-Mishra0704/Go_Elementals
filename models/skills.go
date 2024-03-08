@@ -39,23 +39,3 @@ func (s *ElementalSkill) Use(caster, target *Character) {
 		fmt.Println("Not enough mana to use this skill!")
 	}
 }
-
-type StatSkill struct {
-	Name     string
-	BuffHP   int8
-	BuffMana int8
-	BuffStam int8
-}
-
-func (s *StatSkill) Use(caster, target *Character) {
-	fmt.Printf("Using %s (BuffHP: %d, BuffMana: %d, BuffStamina: %d)\n", s.Name, s.BuffHP, s.BuffMana, s.BuffStam)
-	if target != nil {
-		target.HP += s.BuffHP
-		target.Mana += s.BuffMana
-		target.Stamina += s.BuffStam
-	}
-	if caster != nil {
-		caster.Mana -= s.BuffMana
-		caster.Stamina -= s.BuffStam
-	}
-}
