@@ -7,7 +7,8 @@ import (
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
+	r := rand.Intn(10)
+	time.Sleep(time.Duration(r) * time.Microsecond)
 }
 
 func randomElementalSkill() models.Skill {
