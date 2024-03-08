@@ -6,6 +6,7 @@ type Skill interface {
 
 type PhysicalSkill struct {
 	Name    string
+	Damage  int8
 	Stamina int8
 }
 
